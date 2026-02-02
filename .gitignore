@@ -21,6 +21,7 @@ ENV/
 
 # Test outputs
 test_save.pl
+*.pyc
 
 # OS
 .DS_Store
