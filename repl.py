@@ -2,7 +2,7 @@
 REPL (Read-Eval-Print Loop) for microPROLOG.
 """
 from typing import Optional
-from terms import Term, Variable, Compound
+from terms import Term, Variable, Compound, List as ListTerm
 from parser import parse_text
 from database import Database, Clause
 from inference import InferenceEngine
@@ -160,13 +160,23 @@ class REPL:
     
     def _handle_builtin_query(self, goal: Term):
         """Handle a built-in predicate query."""
+        # Collect all variables in the goal
+        variables = self._collect_variables(goal)
+        
         solution_count = 0
         
         for subst in self.builtins.evaluate(goal, Substitution()):
             solution_count += 1
-            # For built-ins, just indicate success
-            print("yes")
-            break  # Most builtins only have one solution
+            
+            # Display variable bindings
+            if variables:
+                self._display_solution(variables, subst)
+            else:
+                print("yes")
+            
+            # Ask if user wants more solutions
+            if not self._continue_search():
+                break
         
         if solution_count == 0:
             print("no")
@@ -209,9 +219,11 @@ class REPL:
             elif isinstance(t, Compound):
                 for arg in t.args:
                     collect(arg)
-            elif isinstance(t, list):
-                for elem in t:
+            elif isinstance(t, ListTerm):
+                for elem in t.elements:
                     collect(elem)
+                if t.tail:
+                    collect(t.tail)
         
         collect(term)
         return variables
