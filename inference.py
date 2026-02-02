@@ -2,9 +2,10 @@
 Inference engine with SLD resolution and backtracking.
 """
 from typing import List, Generator
-from terms import Term, Variable
+from terms import Term, Variable, Compound
 from database import Database, Clause
 from unification import Substitution, unify
+from builtin_predicates import BuiltinRegistry
 
 
 class InferenceEngine:
@@ -14,6 +15,7 @@ class InferenceEngine:
         self.database = database
         self.depth_limit = 1000  # Prevent infinite recursion
         self._var_counter = 0  # Counter for variable renaming
+        self.builtins = BuiltinRegistry()  # Built-in predicates
     
     def solve(self, goals: List[Term], subst: Substitution = None, depth: int = 0) -> Generator[Substitution, None, None]:
         """
@@ -42,20 +44,27 @@ class InferenceEngine:
         goal = subst.apply(goals[0])
         remaining_goals = goals[1:]
         
-        # Try to match with each clause in database
-        for clause in self.database.get_clauses(goal):
-            # Rename variables in clause to avoid conflicts
-            renamed_clause = self._rename_variables(clause)
-            
-            # Try to unify goal with clause head
-            new_subst = unify(goal, renamed_clause.head, subst)
-            
-            if new_subst is not None:
-                # Add clause body to goals (prepend to remaining goals)
-                new_goals = renamed_clause.body + remaining_goals
+        # Check if goal is a built-in predicate
+        if isinstance(goal, Compound) and self.builtins.is_builtin(goal.functor):
+            # Evaluate built-in predicate
+            for new_subst in self.builtins.evaluate(goal, subst):
+                # Continue with remaining goals
+                yield from self.solve(remaining_goals, new_subst, depth + 1)
+        else:
+            # Try to match with each clause in database
+            for clause in self.database.get_clauses(goal):
+                # Rename variables in clause to avoid conflicts
+                renamed_clause = self._rename_variables(clause)
                 
-                # Recursively solve new goals
-                yield from self.solve(new_goals, new_subst, depth + 1)
+                # Try to unify goal with clause head
+                new_subst = unify(goal, renamed_clause.head, subst)
+                
+                if new_subst is not None:
+                    # Add clause body to goals (prepend to remaining goals)
+                    new_goals = renamed_clause.body + remaining_goals
+                    
+                    # Recursively solve new goals
+                    yield from self.solve(new_goals, new_subst, depth + 1)
     
     def _rename_variables(self, clause: Clause) -> Clause:
         """Rename all variables in a clause to avoid conflicts."""
