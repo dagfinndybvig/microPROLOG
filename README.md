@@ -19,8 +19,10 @@ A simplified implementation of PROLOG (Programming in Logic) with an interactive
 ## What is microPROLOG?
 
 microPROLOG is a simplified dialect of PROLOG (PROgramming in LOGic), a declarative programming language based on formal logic. Unlike imperative languages where you tell the computer *how* to solve a problem step-by-step, in logic programming you describe *what* the problem is, and the system figures out how to solve it.
+This implementation corresponds to the "core" version described in Part III of:
+https://archive.org/details/microprologprogr0000clar/mode/2up
 
-### Core Ideas
+### Basic Ideas
 
 1. **Facts**: Things that are true (e.g., "Tom is Bob's parent")
 2. **Rules**: Logical implications (e.g., "X is a grandparent of Z if X is a parent of Y AND Y is a parent of Z")
