@@ -10,9 +10,16 @@ A simplified implementation of PROLOG (Programming in Logic) with an interactive
 - [Getting Started](#getting-started)
 - [Syntax Guide](#syntax-guide)
 - [Commands](#commands)
+- [Working with Files](#working-with-files)
 - [Tutorial Examples](#tutorial-examples)
 - [Project Structure](#project-structure)
 - [Technical Details](#technical-details)
+- [Built-in Predicates](#built-in-predicates)
+- [Tips and Best Practices](#tips-and-best-practices)
+- [Common Patterns](#common-patterns)
+- [Features](#features)
+- [Troubleshooting](#troubleshooting)
+- [Learning Resources](#learning-resources)
 
 ---
 
@@ -232,13 +239,26 @@ Start with `?` and use the same syntax as facts:
 
 ### Lists
 
-Lists use square brackets:
+Lists use square brackets and support powerful pattern matching:
 
 ```
 [1 2 3]              % Simple list
 []                   % Empty list
 [X Y Z]              % List with variables
-[head | tail]        % List with head and tail notation
+[H | T]              % List with head and tail (H is first element, T is rest)
+[1 2 | Rest]         % Multiple elements before tail
+```
+
+**Pattern matching examples:**
+```
+? (= [H | T] [a b c])
+H = a
+T = [b c]
+
+? (= [First Second | Rest] [1 2 3 4])
+First = 1
+Second = 2
+Rest = [3 4]
 ```
 
 ---
@@ -484,20 +504,29 @@ X = alice
 no more solutions
 ```
 
-### Example 3: Simple Lists
+### Example 3: Lists with Pattern Matching
 
-Working with list structures.
+Lists support powerful pattern matching with `[H | T]` notation.
 
 ```
-&- (first [1 2 3] 1)
+&- ((first L H) (= L [H | T]))
 ok
-&- (rest [1 2 3] [2 3])
+&- ((rest L T) (= L [H | T]))
 ok
 
 &- ? (first [a b c] X)
 X = a
 ; 
 no more solutions
+
+&- ? (rest [1 2 3] X)
+X = [2 3]
+;
+no more solutions
+
+&- ? (= [H | T] [1 2 3 4])
+H = 1
+T = [2 3 4]
 ```
 
 ---
@@ -581,14 +610,53 @@ This allows lazy evaluation - solutions are generated on-demand.
 
 ## Built-in Predicates
 
-Current built-ins (more can be added):
+microPROLOG has 6 built-in predicates that work both in direct queries and inside rules:
 
-- **`(= X Y)`**: Unify X and Y
-- **`(is X Expr)`**: Evaluate arithmetic expression
+- **`(= X Y)`**: Unify X and Y (pattern matching)
+- **`(is X Expr)`**: Evaluate arithmetic expression (supports +, -, *, /)
 - **`(atom X)`**: Check if X is an atom
 - **`(number X)`**: Check if X is a number
 - **`(var X)`**: Check if X is an unbound variable
 - **`(nonvar X)`**: Check if X is not an unbound variable
+
+### Examples
+
+```
+&- ? (= [1 2 3] [X Y Z])
+X = 1, Y = 2, Z = 3
+
+&- ((double X Result) (is Result (* X 2)))
+ok
+&- ? (double 7 X)
+X = 14
+
+&- ? (atom tom)
+yes
+
+&- ? (number 42)
+yes
+```
+
+For detailed testing guide, see `BUILTINS_TESTING.md`.
+
+### List Operations
+
+Lists don't require built-in predicates - they work through pattern matching:
+
+```
+&- ((member X [X | T]))
+ok
+&- ((member X [H | T]) (member X T))
+ok
+
+&- ((append [] L L))
+ok
+&- ((append [H | T1] L2 [H | T3]) (append T1 L2 T3))
+ok
+
+&- ? (append [1 2] [3 4] X)
+X = [1 2 3 4]
+```
 
 ---
 
@@ -644,6 +712,52 @@ The system will try all matching rules.
 
 ---
 
+## Features
+
+### ✅ Fully Implemented
+
+- **Core Logic Programming**
+  - Facts and rules
+  - Queries with backtracking
+  - Pattern matching and unification
+  - SLD resolution inference engine
+  - Depth-first search with occurs check
+
+- **Data Types**
+  - Atoms (strings and lowercase identifiers)
+  - Numbers (integers and floats)
+  - Variables (uppercase or underscore-prefixed)
+  - Compound terms with arbitrary nesting
+  - Lists with `[H | T]` pattern matching
+
+- **Built-in Predicates**
+  - Unification: `(= X Y)`
+  - Arithmetic: `(is X Expr)` with +, -, *, /
+  - Type checking: `(atom X)`, `(number X)`, `(var X)`, `(nonvar X)`
+  - All built-ins work in rules and direct queries
+
+- **File I/O**
+  - Load files: `consult` or `load`
+  - Save database: `save`
+  - Standard `.pl` file format
+
+- **Interactive REPL**
+  - Command history
+  - Solution navigation (Enter/n)
+  - Database listing
+  - Clear database
+  - Helpful error messages
+
+### 🔨 Future Extensions
+
+- Arithmetic comparison operators (<, >, =<, >=)
+- Assert/retract for dynamic modification
+- Trace mode for debugging
+- Cut (!) operator
+- Negation as failure (\+)
+
+---
+
 ## Troubleshooting
 
 ### "Parser error"
@@ -695,12 +809,12 @@ This is an educational implementation created for learning purposes.
 
 This implementation can be extended with:
 
-- ~~More built-in predicates (append, member, length for lists)~~ → Can be implemented
-- ~~Arithmetic comparison operators (<, >, <=, >=)~~ → Can be implemented
-- ~~Assert/retract for dynamic database modification~~ → Partially done with `clear`
+- Arithmetic comparison operators (<, >, =<, >=)
+- Assert/retract for dynamic database modification (partially done with `clear`)
 - Trace mode for debugging
-- ~~File loading/saving~~ → ✅ Implemented!
 - Cut (!) operator for controlling backtracking
+- Negation as failure (\+)
+- More sophisticated indexing for faster clause retrieval
 
 ---
 
