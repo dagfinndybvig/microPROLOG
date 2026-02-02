@@ -159,6 +159,27 @@ Type 'help' for commands, 'quit' to exit
 
 The `&-` is the prompt where you enter commands.
 
+### Starting with a File
+
+You can automatically load a file on startup by providing it as a command line argument:
+
+```bash
+python main.py family.pl
+```
+
+This will load the file and then start the REPL:
+```
+microPROLOG v1.0
+Loading family.pl...
+
+Loaded 7 clause(s) from family.pl
+
+microPROLOG v1.0
+Type 'help' for commands, 'quit' to exit
+
+&-
+```
+
 ### Your First Session
 
 Try this simple example (type each line after the `&-` prompt):
