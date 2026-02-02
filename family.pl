@@ -1,6 +1,7 @@
 % Family tree example
 % Facts about parent relationships
 
+(parent dagfinn johan)
 (parent tom bob).
 (parent tom mary).
 (parent bob ann).

@@ -253,7 +253,7 @@ Means: "X is a grandparent of Z if X is a parent of Y AND Y is a parent of Z"
 
 ### Queries
 
-Start with `?` and use the same syntax as facts:
+Start with `?` and use the same syntax as facts. **No period needed**:
 
 ```
 ? (parent tom X)           % Who are Tom's children?
@@ -261,6 +261,16 @@ Start with `?` and use the same syntax as facts:
 ? (grandparent tom X)      % Who are Tom's grandchildren?
 ? (ancestor X mary)        % Who are Mary's ancestors?
 ```
+
+**Conjunction queries** - multiple goals can be combined:
+
+```
+? (parent tom X) (parent X Y)              % Tom's grandchildren
+? (parent X mary) (parent X bob)           % Who is parent of both Mary and Bob?
+? (parent A B) (parent B C) (parent C D)   % Three generations
+```
+
+The system will find values for all variables that satisfy ALL the goals together.
 
 ### Lists
 

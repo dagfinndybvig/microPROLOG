@@ -273,6 +273,13 @@ class Parser:
         if self.current_token.type != TokenType.EOF:
             self.error(f"Unexpected tokens after term: {self.current_token}")
         return term
+    
+    def parse_multiple(self) -> List[Term]:
+        """Parse multiple terms (for conjunction queries)."""
+        terms = []
+        while self.current_token.type != TokenType.EOF:
+            terms.append(self.parse_term())
+        return terms
 
 
 def parse_text(text: str) -> Term:
@@ -281,3 +288,11 @@ def parse_text(text: str) -> Term:
     tokens = tokenizer.tokenize()
     parser = Parser(tokens)
     return parser.parse()
+
+
+def parse_query(text: str) -> List[Term]:
+    """Parse a query that may contain multiple goals (conjunction)."""
+    tokenizer = Tokenizer(text)
+    tokens = tokenizer.tokenize()
+    parser = Parser(tokens)
+    return parser.parse_multiple()

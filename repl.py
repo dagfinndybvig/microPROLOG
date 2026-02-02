@@ -3,7 +3,7 @@ REPL (Read-Eval-Print Loop) for microPROLOG.
 """
 from typing import Optional
 from terms import Term, Variable, Compound, List as ListTerm
-from parser import parse_text
+from parser import parse_text, parse_query
 from database import Database, Clause
 from inference import InferenceEngine
 from builtin_predicates import BuiltinRegistry
@@ -147,13 +147,18 @@ class REPL:
     def _handle_query(self, query_text: str):
         """Process a query and display solutions."""
         try:
-            goal = parse_text(query_text)
+            goals = parse_query(query_text)
             
-            # Check if it's a builtin
-            if isinstance(goal, Compound) and self.builtins.is_builtin(goal.functor):
-                self._handle_builtin_query(goal)
+            if not goals:
+                print("Error: Empty query")
+                return
+            
+            # Single goal - check if it's a builtin
+            if len(goals) == 1 and isinstance(goals[0], Compound) and self.builtins.is_builtin(goals[0].functor):
+                self._handle_builtin_query(goals[0])
             else:
-                self._handle_regular_query(goal)
+                # Multiple goals or non-builtin - use regular query
+                self._handle_regular_query(goals)
                 
         except Exception as e:
             print(f"Error processing query: {e}")
@@ -181,14 +186,26 @@ class REPL:
         if solution_count == 0:
             print("no")
     
-    def _handle_regular_query(self, goal: Term):
-        """Handle a regular database query."""
-        # Collect all variables in the goal
-        variables = self._collect_variables(goal)
+    def _handle_regular_query(self, goals):
+        """Handle a regular database query (single goal or conjunction)."""
+        # Collect all variables in all goals
+        variables = []
+        for goal in goals:
+            variables.extend(self._collect_variables(goal))
+        
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_vars = []
+        for var in variables:
+            if var.name not in seen:
+                seen.add(var.name)
+                unique_vars.append(var)
+        variables = unique_vars
         
         solution_count = 0
         
-        for subst in self.engine.query(goal):
+        # Query with all goals
+        for subst in self.engine.solve(goals):
             solution_count += 1
             
             # Display variable bindings
