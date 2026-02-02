@@ -2,20 +2,22 @@ microPROLOG v1.0
 Type 'help' for commands, 'quit' to exit
 
 % Adding a fact - a simple assertion about the world
-&- (parent tom bob)
+% Facts must end with a period (.)
+&- (parent tom bob).
 ok
 
 % Adding another fact
-&- (parent bob ann)
+&- (parent bob ann).
 ok
 
 % Adding a rule - grandparent is defined in terms of parent
-% Rule format: ((head) (condition1) (condition2) ...)
+% Rule format: ((head) (condition1) (condition2) ...).
 % Meaning: X is grandparent of Z if X is parent of Y AND Y is parent of Z
-&- ((grandparent X Z) (parent X Y) (parent Y Z))
+&- ((grandparent X Z) (parent X Y) (parent Y Z)).
 ok
 
 % Making a query - who is bob's parent?
+% Queries start with ? and don't need a period
 &- ? (parent X bob)
 X = tom
 ; (press Enter for next solution, or 'n' to stop)
@@ -28,9 +30,9 @@ X = ann
 no more solutions
 
 % Query with multiple solutions
-&- (parent tom mary)
+&- (parent tom mary).
 ok
-&- (parent bob jane)
+&- (parent bob jane).
 ok
 
 &- ? (grandparent tom X)

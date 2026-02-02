@@ -61,9 +61,16 @@ class REPL:
                 # Query (starts with ?)
                 elif line.startswith('?'):
                     self._handle_query(line[1:].strip())
-                # Clause (fact or rule)
+                # Clause (fact or rule) - must end with period
+                elif line.endswith('.'):
+                    self._handle_clause(line[:-1].strip())
+                # If it looks like a clause but no period, give helpful error
+                elif line.startswith('('):
+                    print("Error: Clauses must end with a period (.) to be added")
+                    print("       Use '?' to query instead")
                 else:
-                    self._handle_clause(line)
+                    print(f"Unknown command: {line}")
+                    print("Type 'help' for available commands")
                     
             except KeyboardInterrupt:
                 print("\nInterrupted")
@@ -76,8 +83,8 @@ class REPL:
     def _show_help(self):
         """Display help message."""
         print("microPROLOG Commands:")
-        print("  (fact args...)          - Add a fact")
-        print("  ((head) (body)...)      - Add a rule")
+        print("  (fact args...).         - Add a fact (note the period!)")
+        print("  ((head) (body)...).     - Add a rule (note the period!)")
         print("  ? (query args...)       - Query the database")
         print("  listing                 - Show all clauses")
         print("  clear                   - Clear database")
@@ -88,8 +95,8 @@ class REPL:
         print("  quit / exit             - Exit microPROLOG")
         print()
         print("Examples:")
-        print("  (parent tom bob)")
-        print("  ((grandparent X Z) (parent X Y) (parent Y Z))")
+        print("  (parent tom bob).")
+        print("  ((grandparent X Z) (parent X Y) (parent Y Z)).")
         print("  ? (parent tom X)")
         print("  consult family.pl")
         print("  save my_facts.pl")
@@ -240,6 +247,10 @@ class REPL:
                 # Skip empty lines and comments
                 if not line or line.startswith('%'):
                     continue
+                
+                # Strip trailing period if present (for compatibility with REPL syntax)
+                if line.endswith('.'):
+                    line = line[:-1].strip()
                 
                 try:
                     # Try to parse and add the clause

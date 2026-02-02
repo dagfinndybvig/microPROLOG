@@ -164,10 +164,10 @@ The `&-` is the prompt where you enter commands.
 Try this simple example (type each line after the `&-` prompt):
 
 ```
-&- (parent tom bob)
+&- (parent tom bob).
 ok
 
-&- (parent bob ann)
+&- (parent bob ann).
 ok
 
 &- ? (parent tom X)
@@ -178,6 +178,8 @@ no more solutions
 &- quit
 Goodbye!
 ```
+
+**Note**: Facts and rules must end with a period (`.`), but queries start with `?` and don't need one.
 
 Congratulations! You just:
 1. Added two facts to the database
@@ -199,32 +201,34 @@ Congratulations! You just:
 
 ### Facts
 
-Simple assertions with no conditions:
+Simple assertions with no conditions. **Must end with a period (`.`)**:
 
 ```
-(parent tom bob)
-(likes mary pizza)
-(age john 25)
+(parent tom bob).
+(likes mary pizza).
+(age john 25).
 ```
 
 ### Rules
 
-Format: `((head) (body1) (body2) ...)`
+Format: `((head) (body1) (body2) ...).` **Must end with a period (`.`)**:
 
 ```
-((grandparent X Z) (parent X Y) (parent Y Z))
+((grandparent X Z) (parent X Y) (parent Y Z)).
 
-((sibling X Y) (parent P X) (parent P Y))
+((sibling X Y) (parent P X) (parent P Y)).
 
-((ancestor X Y) (parent X Y))
-((ancestor X Z) (parent X Y) (ancestor Y Z))
+((ancestor X Y) (parent X Y)).
+((ancestor X Z) (parent X Y) (ancestor Y Z)).
 ```
 
 **Reading a rule**:
 ```
-((grandparent X Z) (parent X Y) (parent Y Z))
+((grandparent X Z) (parent X Y) (parent Y Z)).
 ```
 Means: "X is a grandparent of Z if X is a parent of Y AND Y is a parent of Z"
+
+**Important**: The period (`.`) at the end is required to add the clause to the database.
 
 ### Queries
 
@@ -267,15 +271,15 @@ Rest = [3 4]
 
 ### Database Commands
 
-- **Add a fact**: Just type it directly
+- **Add a fact**: Type it with a period at the end
   ```
-  &- (parent tom bob)
+  &- (parent tom bob).
   ok
   ```
 
-- **Add a rule**: Use the `((head) body...)` format
+- **Add a rule**: Use the `((head) body...).` format with a period
   ```
-  &- ((grandparent X Z) (parent X Y) (parent Y Z))
+  &- ((grandparent X Z) (parent X Y) (parent Y Z)).
   ok
   ```
 
@@ -345,17 +349,19 @@ You can create microPROLOG source files (conventionally with `.pl` extension) in
 % Family tree example
 % Facts about parent relationships
 
-(parent tom bob)
-(parent tom mary)
-(parent bob ann)
-(parent bob pat)
-(parent mary jim)
+(parent tom bob).
+(parent tom mary).
+(parent bob ann).
+(parent bob pat).
+(parent mary jim).
 
 % Rules for derived relationships
 
-((grandparent X Z) (parent X Y) (parent Y Z))
-((sibling X Y) (parent P X) (parent P Y))
+((grandparent X Z) (parent X Y) (parent Y Z)).
+((sibling X Y) (parent P X) (parent P Y)).
 ```
+
+**Note**: In files, periods are optional but recommended for consistency with REPL usage.
 
 ### Loading Files
 
@@ -396,7 +402,7 @@ The saved file will include:
 
 2. **Add more facts interactively:**
    ```
-   &- (parent pat sue)
+   &- (parent pat sue).
    ok
    ```
 
@@ -429,15 +435,15 @@ The saved file will include:
 Build a simple family tree and query relationships.
 
 ```
-&- (parent tom bob)
+&- (parent tom bob).
 ok
-&- (parent tom mary)
+&- (parent tom mary).
 ok
-&- (parent bob ann)
+&- (parent bob ann).
 ok
-&- (parent bob pat)
+&- (parent bob pat).
 ok
-&- (parent mary jim)
+&- (parent mary jim).
 ok
 
 &- ? (parent tom X)
@@ -447,7 +453,7 @@ X = mary
 ; (press Enter)
 no more solutions
 
-&- ((grandparent X Z) (parent X Y) (parent Y Z))
+&- ((grandparent X Z) (parent X Y) (parent Y Z)).
 ok
 
 &- ? (grandparent tom X)
@@ -459,7 +465,7 @@ X = jim
 ; (press Enter)
 no more solutions
 
-&- ((sibling X Y) (parent P X) (parent P Y))
+&- ((sibling X Y) (parent P X) (parent P Y)).
 ok
 
 &- ? (sibling X Y)
@@ -473,16 +479,16 @@ Y = bob
 Define ancestor as a recursive relationship.
 
 ```
-&- (parent alice bob)
+&- (parent alice bob).
 ok
-&- (parent bob charlie)
+&- (parent bob charlie).
 ok
-&- (parent charlie diana)
+&- (parent charlie diana).
 ok
 
-&- ((ancestor X Y) (parent X Y))
+&- ((ancestor X Y) (parent X Y)).
 ok
-&- ((ancestor X Z) (parent X Y) (ancestor Y Z))
+&- ((ancestor X Z) (parent X Y) (ancestor Y Z)).
 ok
 
 &- ? (ancestor alice X)
@@ -509,9 +515,9 @@ no more solutions
 Lists support powerful pattern matching with `[H | T]` notation.
 
 ```
-&- ((first L H) (= L [H | T]))
+&- ((first L H) (= L [H | T])).
 ok
-&- ((rest L T) (= L [H | T]))
+&- ((rest L T) (= L [H | T])).
 ok
 
 &- ? (first [a b c] X)
@@ -625,7 +631,7 @@ microPROLOG has 6 built-in predicates that work both in direct queries and insid
 &- ? (= [1 2 3] [X Y Z])
 X = 1, Y = 2, Z = 3
 
-&- ((double X Result) (is Result (* X 2)))
+&- ((double X Result) (is Result (* X 2))).
 ok
 &- ? (double 7 X)
 X = 14
@@ -644,14 +650,14 @@ For detailed testing guide, see `BUILTINS_TESTING.md`.
 Lists don't require built-in predicates - they work through pattern matching:
 
 ```
-&- ((member X [X | T]))
+&- ((member X [X | T])).
 ok
-&- ((member X [H | T]) (member X T))
+&- ((member X [H | T]) (member X T)).
 ok
 
-&- ((append [] L L))
+&- ((append [] L L)).
 ok
-&- ((append [H | T1] L2 [H | T3]) (append T1 L2 T3))
+&- ((append [H | T1] L2 [H | T3]) (append T1 L2 T3)).
 ok
 
 &- ? (append [1 2] [3 4] X)
@@ -692,10 +698,10 @@ Many relationships are naturally recursive:
 
 ```
 % Base case: direct parent relationship
-((ancestor X Y) (parent X Y))
+((ancestor X Y) (parent X Y)).
 
 % Recursive case: ancestor through intermediate
-((ancestor X Z) (parent X Y) (ancestor Y Z))
+((ancestor X Z) (parent X Y) (ancestor Y Z)).
 ```
 
 ### Multiple Rules for Same Predicate
@@ -703,9 +709,9 @@ Many relationships are naturally recursive:
 You can have multiple rules with the same head:
 
 ```
-((sibling X Y) (parent P X) (parent P Y))
-((sibling X Y) (mother M X) (mother M Y))
-((sibling X Y) (father F X) (father F Y))
+((sibling X Y) (parent P X) (parent P Y)).
+((sibling X Y) (mother M X) (mother M Y)).
+((sibling X Y) (father F X) (father F Y)).
 ```
 
 The system will try all matching rules.
