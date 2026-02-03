@@ -38,8 +38,10 @@ But their contribution is not forgotten!
 ## What is microPROLOG?
 
 microPROLOG is a simplified dialect of PROLOG (PROgramming in LOGic), a declarative programming language based on formal logic. Unlike imperative languages where you tell the computer *how* to solve a problem step-by-step, in logic programming you describe *what* the problem is, and the system figures out how to solve it.
-This implementation corresponds to the "core" version described in Part III of Clark/McCabe:
+The present system corresponds loosely to the "core" version of micro-Prolog described in Part III of Clark/McCabe:
 https://archive.org/details/microprologprogr0000clar/mode/2up
+
+Pesonally I like this LISP-like syntax, so we go with that.
 
 ### Basic Ideas
 
