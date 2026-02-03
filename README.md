@@ -1,10 +1,10 @@
 
-<img width="144" height="171" alt="skolem" src="https://github.com/user-attachments/assets/42184f92-efdf-4a17-8c3c-90502aaaeac9" />Thoralf Skolem (1887–1963) 
-<img width="144" height="171" alt="amble" src="https://github.com/user-attachments/assets/68a6e2e7-6d56-42a5-b6a2-4a4191713589" />Tore Amble (1945-2012) 
+<img width="144" height="171" alt="skolem" src="https://github.com/user-attachments/assets/42184f92-efdf-4a17-8c3c-90502aaaeac9" /> Thoralf Skolem (1887–1963) 
+<img width="144" height="171" alt="amble" src="https://github.com/user-attachments/assets/68a6e2e7-6d56-42a5-b6a2-4a4191713589" /> Tore Amble (1945-2012) 
 
 <br>
 
-### This project is in memory of Norwegian mathematician Thoralf Skolem who pioneered the recursive logic that lies behind PROLOG. I would also like to acknowledge the contribution to logic programming and expert systems by Tore Amble of the Norwegian University of Science and Technology, who inspired me as a very young man.
+### This project is in memory of Norwegian mathematician Thoralf Skolem who pioneered the recursive logic that lies behind PROLOG. I would also like to acknowledge the contribution to logic programming and expert systems by Tore Amble of the Norwegian University of Science and Technology, who inspired me as a very young man. I still have his book.
 
 <br>
 
