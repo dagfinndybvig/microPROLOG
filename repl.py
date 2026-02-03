@@ -31,7 +31,7 @@ class REPL:
                 if not line:
                     continue
                 
-                # Handle commands
+                # Handle commands (single-line only)
                 if line in ['quit', 'exit']:
                     print("Goodbye!")
                     break
@@ -61,13 +61,25 @@ class REPL:
                 # Query (starts with ?)
                 elif line.startswith('?'):
                     self._handle_query(line[1:].strip())
-                # Clause (fact or rule) - must end with period
-                elif line.endswith('.'):
-                    self._handle_clause(line[:-1].strip())
-                # If it looks like a clause but no period, give helpful error
+                # Clause (fact or rule) - check if complete
                 elif line.startswith('('):
-                    print("Error: Clauses must end with a period (.) to be added")
-                    print("       Use '?' to query instead")
+                    # Accumulate lines until we get a period
+                    clause_lines = [line]
+                    
+                    while not clause_lines[-1].endswith('.'):
+                        try:
+                            continuation = input("... ").strip()
+                            if continuation:
+                                clause_lines.append(continuation)
+                        except (EOFError, KeyboardInterrupt):
+                            print("\nInput cancelled")
+                            clause_lines = []
+                            break
+                    
+                    if clause_lines:
+                        # Join all lines and remove the period
+                        full_clause = ' '.join(clause_lines)[:-1].strip()
+                        self._handle_clause(full_clause)
                 else:
                     print(f"Unknown command: {line}")
                     print("Type 'help' for available commands")
