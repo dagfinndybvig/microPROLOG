@@ -41,7 +41,7 @@ microPROLOG is a simplified dialect of PROLOG (PROgramming in LOGic), a declarat
 The present system corresponds loosely to the "core" version of micro-Prolog described in Part III of Clark/McCabe:
 https://archive.org/details/microprologprogr0000clar/mode/2up
 
-Pesonally I like this LISP-like syntax, so we go with that.
+Personally I like this LISP-like syntax, so we go with that.
 
 ### Basic Ideas
 
