@@ -216,6 +216,15 @@ Goodbye!
 
 **Note**: Facts and rules must end with a period (`.`), but queries start with `?` and don't need one.
 
+**Multi-line input**: For complex rules, you can split them across multiple lines. The prompt changes to `...` for continuation:
+
+```
+&- ((grandparent X Z)
+...   (parent X Y)
+...   (parent Y Z)).
+ok
+```
+
 Congratulations! You just:
 1. Added two facts to the database
 2. Queried to find Tom's children
@@ -233,6 +242,7 @@ Congratulations! You just:
 - **Atoms** start with lowercase: `tom`, `parent`, `age`
 - **Numbers** are recognized: `42`, `3.14`
 - **Comments** start with `%`: `% This is a comment`
+- **Multi-line support**: Split long clauses across lines (in files and REPL)
 
 ### Facts
 
@@ -255,6 +265,18 @@ Format: `((head) (body1) (body2) ...).` **Must end with a period (`.`)**:
 
 ((ancestor X Y) (parent X Y)).
 ((ancestor X Z) (parent X Y) (ancestor Y Z)).
+```
+
+**Multi-line format** (both in files and REPL):
+```
+((grandparent X Z)
+  (parent X Y)
+  (parent Y Z)).
+
+((factorial N Result)
+  (is N1 (- N 1))
+  (fact N1 R1)
+  (is Result (* N R1))).
 ```
 
 **Reading a rule**:
@@ -325,6 +347,14 @@ Rest = [3 4]
 - **Add a rule**: Use the `((head) body...).` format with a period
   ```
   &- ((grandparent X Z) (parent X Y) (parent Y Z)).
+  ok
+  ```
+  
+  **Multi-line entry**: Press Enter without a period to continue on next line
+  ```
+  &- ((grandparent X Z)
+  ...   (parent X Y)
+  ...   (parent Y Z)).
   ok
   ```
 
@@ -984,12 +1014,14 @@ The system will try all matching rules.
   - Load files: `consult` or `load`
   - Save database: `save`
   - Standard `.pl` file format
+  - Multi-line predicates supported in files
 
 - **Interactive REPL**
   - Command history
   - Solution navigation (Enter/n)
   - Database listing
   - Clear database
+  - Multi-line input with continuation prompt (`...`)
   - Helpful error messages
 
 ### 🔨 Future Extensions
