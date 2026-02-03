@@ -4,7 +4,7 @@
 
 <br>
 
-### This project is in memory of Norwegian mathematician Thoralf Skolem who pioneered the recursive logic that lies behind PROLOG. I would also like to acknowledge the contribution to logic programming and expert systems by Tore Amble of the Norwegian University of Science and Technology, who inspired me as a very young man. I still have his book.
+### This project is in honour of Norwegian mathematician Thoralf Skolem who pioneered the recursive logic that lies behind PROLOG. I would also like to acknowledge the contribution to logic programming and expert systems by Tore Amble of the Norwegian University of Science and Technology, who inspired me as a very young man. I still have his book.
 
 <br>
 
