@@ -1,5 +1,8 @@
 
-<img width="404" height="402" alt="skolem" src="https://github.com/user-attachments/assets/d28290e8-58aa-4882-b7ab-7c6ebfe47eb0" />
+<img width="144" height="171" alt="skolem" src="https://github.com/user-attachments/assets/42184f92-efdf-4a17-8c3c-90502aaaeac9" />
+<img width="144" height="171" alt="amble" src="https://github.com/user-attachments/assets/68a6e2e7-6d56-42a5-b6a2-4a4191713589" />
+
+
 
 <br>
 
