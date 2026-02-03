@@ -6,7 +6,10 @@
 ((fact 0 1) !).
 
 % Recursive case: fact(N) = N * fact(N-1)
-((fact N Result) (is N1 (- N 1)) (fact N1 R1) (is Result (* N R1))).
+((fact N Result)
+  (is N1 (- N 1))
+  (fact N1 R1)
+  (is Result (* N R1))).
 
 % Example queries:
 % ? (fact 5 X)

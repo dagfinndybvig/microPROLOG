@@ -266,45 +266,67 @@ class REPL:
             with open(filename, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            # Split by lines and process each clause
+            # Split by lines and accumulate until we find a complete clause
             lines = content.split('\n')
             clause_count = 0
+            current_clause = []
+            start_line = None
             
             for line_num, line in enumerate(lines, 1):
-                line = line.strip()
+                # Strip whitespace but preserve the line for accumulation
+                stripped = line.strip()
                 
-                # Skip empty lines and comments
-                if not line or line.startswith('%'):
+                # Skip empty lines and comments when not in a clause
+                if not current_clause and (not stripped or stripped.startswith('%')):
                     continue
                 
-                # Strip trailing period if present (for compatibility with REPL syntax)
-                if line.endswith('.'):
-                    line = line[:-1].strip()
+                # Skip comment lines even within clauses
+                if stripped.startswith('%'):
+                    continue
                 
-                try:
-                    # Try to parse and add the clause
-                    term = parse_text(line)
+                # If we have content, accumulate it
+                if stripped:
+                    if not current_clause:
+                        start_line = line_num
+                    current_clause.append(stripped)
+                
+                # Check if this line completes a clause (ends with period)
+                if stripped.endswith('.'):
+                    # Join all accumulated lines and remove the period
+                    clause_text = ' '.join(current_clause)[:-1].strip()
                     
-                    # Check if it's a rule or fact
-                    if isinstance(term, Compound) and len(term.args) > 0:
-                        first_arg = term.args[0]
-                        if isinstance(first_arg, Compound) and len(term.args) > 1:
-                            # This is a rule
-                            head = first_arg
-                            body = list(term.args[1:])
-                            clause = Clause(head, body)
+                    try:
+                        # Parse and add the clause
+                        term = parse_text(clause_text)
+                        
+                        # Check if it's a rule or fact
+                        if isinstance(term, Compound) and len(term.args) > 0:
+                            first_arg = term.args[0]
+                            if isinstance(first_arg, Compound) and term.functor == "":
+                                # This is a rule (empty functor means rule syntax)
+                                head = first_arg
+                                body = list(term.args[1:])
+                                clause = Clause(head, body)
+                            else:
+                                # This is a fact
+                                clause = Clause(term)
                         else:
                             # This is a fact
                             clause = Clause(term)
-                    else:
-                        # This is a fact
-                        clause = Clause(term)
+                        
+                        self.database.add_clause(clause)
+                        clause_count += 1
+                        
+                    except Exception as e:
+                        print(f"Warning: Error on line {start_line}: {e}")
                     
-                    self.database.add_clause(clause)
-                    clause_count += 1
-                    
-                except Exception as e:
-                    print(f"Warning: Error on line {line_num}: {e}")
+                    # Reset for next clause
+                    current_clause = []
+                    start_line = None
+            
+            # Warn if there's an incomplete clause at end of file
+            if current_clause:
+                print(f"Warning: Incomplete clause at end of file (starting line {start_line})")
             
             print(f"Loaded {clause_count} clause(s) from {filename}")
             
