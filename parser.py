@@ -129,10 +129,21 @@ class Tokenizer:
                 tokens.append(Token(TokenType.PIPE, '|'))
                 self.advance()
             
-            # Operator symbols (single character operators as atoms)
-            elif self.current_char in '+-*/=<>':
-                tokens.append(Token(TokenType.ATOM, self.current_char))
+            # Operator symbols (handle multi-character operators)
+            elif self.current_char in '+-*/=<>\\':
+                op = self.current_char
                 self.advance()
+                # Check for multi-character operators
+                if op == '=' and self.current_char == '<':
+                    op = '=<'
+                    self.advance()
+                elif op == '>' and self.current_char == '=':
+                    op = '>='
+                    self.advance()
+                elif op == '\\' and self.current_char == '+':
+                    op = '\\+'
+                    self.advance()
+                tokens.append(Token(TokenType.ATOM, op))
             
             # Numbers
             elif self.current_char.isdigit():

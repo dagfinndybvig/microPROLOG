@@ -17,6 +17,10 @@ class BuiltinRegistry:
             'number': self._is_number,
             'var': self._is_var,
             'nonvar': self._is_nonvar,
+            '<': self._less_than,
+            '>': self._greater_than,
+            '=<': self._less_or_equal,
+            '>=': self._greater_or_equal,
         }
     
     def is_builtin(self, functor: str) -> bool:
@@ -134,3 +138,55 @@ class BuiltinRegistry:
         term = subst.apply(args[0])
         if not isinstance(term, Variable):
             yield subst
+    
+    def _less_than(self, args: tuple, subst: Substitution) -> Generator[Substitution, None, None]:
+        """(< X Y) - check if X is less than Y"""
+        if len(args) != 2:
+            return
+        
+        try:
+            left = self._eval_arithmetic(args[0], subst)
+            right = self._eval_arithmetic(args[1], subst)
+            if left < right:
+                yield subst
+        except:
+            pass  # Evaluation failed
+    
+    def _greater_than(self, args: tuple, subst: Substitution) -> Generator[Substitution, None, None]:
+        """(> X Y) - check if X is greater than Y"""
+        if len(args) != 2:
+            return
+        
+        try:
+            left = self._eval_arithmetic(args[0], subst)
+            right = self._eval_arithmetic(args[1], subst)
+            if left > right:
+                yield subst
+        except:
+            pass  # Evaluation failed
+    
+    def _less_or_equal(self, args: tuple, subst: Substitution) -> Generator[Substitution, None, None]:
+        """(=< X Y) - check if X is less than or equal to Y"""
+        if len(args) != 2:
+            return
+        
+        try:
+            left = self._eval_arithmetic(args[0], subst)
+            right = self._eval_arithmetic(args[1], subst)
+            if left <= right:
+                yield subst
+        except:
+            pass  # Evaluation failed
+    
+    def _greater_or_equal(self, args: tuple, subst: Substitution) -> Generator[Substitution, None, None]:
+        """(>= X Y) - check if X is greater than or equal to Y"""
+        if len(args) != 2:
+            return
+        
+        try:
+            left = self._eval_arithmetic(args[0], subst)
+            right = self._eval_arithmetic(args[1], subst)
+            if left >= right:
+                yield subst
+        except:
+            pass  # Evaluation failed
