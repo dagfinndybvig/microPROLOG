@@ -8,7 +8,7 @@
 
 # microPROLOG
 
-A simplified implementation of PROLOG (Programming in Logic) with an interactive Read-Eval-Print Loop (REPL). This implementation uses a clean prefix notation syntax and is designed for educational purposes and logic programming experiments.
+A simplified Python implementation of PROLOG (Programming in Logic) with an interactive Read-Eval-Print Loop (REPL). This implementation uses a clean prefix notation syntax and is designed for educational purposes and logic programming experiments.
 
 A twist of fate is that the present system is implemented with the help of Github Copilot: The very artificial intelligence the creators of PROLOG worked towards but never quite achieved.
 
