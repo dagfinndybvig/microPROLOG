@@ -1,3 +1,8 @@
+
+<img width="404" height="402" alt="skolem" src="https://github.com/user-attachments/assets/d28290e8-58aa-4882-b7ab-7c6ebfe47eb0" />
+
+This project is in memory of Norwegian mathematician Thoralf Skolem (1887–1963) who pioneered the recursive logic that lies behind PROLOG
+
 # microPROLOG
 
 A simplified implementation of PROLOG (Programming in Logic) with an interactive Read-Eval-Print Loop (REPL). This implementation uses a clean prefix notation syntax and is designed for educational purposes and logic programming experiments.
