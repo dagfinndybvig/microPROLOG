@@ -666,6 +666,52 @@ Z = alice
 no more solutions
 ```
 
+### Example 6: Cut Operator for Control Flow
+
+The cut operator (`!`) commits to the current clause and prevents backtracking.
+
+```
+% Without cut - tries all choices
+&- (choice a).
+ok
+&- (choice b).
+ok
+&- (choice c).
+ok
+
+&- ? (choice X)
+X = a
+; (press Enter)
+X = b
+; (press Enter)
+X = c
+
+% With cut - stops after first choice
+&- ((first_choice X) (choice X) !).
+ok
+
+&- ? (first_choice X)
+X = a
+; (press Enter)
+no more solutions
+
+% Classic use case: max function
+&- ((max X Y X) (>= X Y) !).
+ok
+&- (max X Y Y).
+ok
+
+&- ? (max 10 5 Z)
+Z = 10
+; (press Enter - cut prevents trying second clause)
+no more solutions
+
+&- ? (max 3 8 Z)
+Z = 8
+; (first clause fails, tries second)
+no more solutions
+```
+
 ---
 
 ## Project Structure
@@ -747,7 +793,7 @@ This allows lazy evaluation - solutions are generated on-demand.
 
 ## Built-in Predicates
 
-microPROLOG has 12 built-in predicates that work both in direct queries and inside rules:
+microPROLOG has 12 built-in predicates and 1 control operator that work both in direct queries and inside rules:
 
 ### Unification and Arithmetic
 - **`(= X Y)`**: Unify X and Y (pattern matching)
@@ -768,6 +814,9 @@ microPROLOG has 12 built-in predicates that work both in direct queries and insi
 - **`(number X)`**: Check if X is a number
 - **`(var X)`**: Check if X is an unbound variable
 - **`(nonvar X)`**: Check if X is not an unbound variable
+
+### Control Operators
+- **`!`**: Cut - succeeds and prevents backtracking to alternative clauses
 
 ### Examples
 
@@ -797,6 +846,22 @@ yes
 
 &- ? (/= X X)
 no
+
+% Cut example: max function
+&- ((max X Y X) (>= X Y) !).
+ok
+&- (max X Y Y).
+ok
+
+&- ? (max 10 5 Z)
+Z = 10
+; (press Enter - no more solutions due to cut)
+no more solutions
+
+&- ? (max 3 8 Z)
+Z = 8
+; 
+no more solutions
 
 &- (age bob 25).
 ok
@@ -912,6 +977,7 @@ The system will try all matching rules.
   - Comparison: `(< X Y)`, `(> X Y)`, `(=< X Y)`, `(>= X Y)`, `(<> X Y)`
   - Inequality: `(/= X Y)` for non-unification
   - Type checking: `(atom X)`, `(number X)`, `(var X)`, `(nonvar X)`
+  - Control: Cut (`!`) for preventing backtracking
   - All built-ins work in rules and direct queries
 
 - **File I/O**
@@ -930,7 +996,6 @@ The system will try all matching rules.
 
 - Assert/retract for dynamic modification
 - Trace mode for debugging
-- Cut (!) operator
 - Negation as failure (\+)
 
 ---
@@ -995,7 +1060,6 @@ This implementation can be extended with:
 
 - Assert/retract for dynamic database modification (partially done with `clear`)
 - Trace mode for debugging
-- Cut (!) operator for controlling backtracking
 - Negation as failure (\+)
 - More sophisticated indexing for faster clause retrieval
 
