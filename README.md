@@ -628,6 +628,44 @@ Y = 20
 no more solutions
 ```
 
+### Example 5: Inequality Operators
+
+Use `<>` for numeric inequality and `/=` for non-unification.
+
+```
+% Arithmetic inequality with <>
+&- ? (<> 5 10)
+yes
+
+&- ? (<> 10 10)
+no
+
+&- ? (age X Y) (<> Y 25)
+X = charlie
+Y = 30
+
+% Non-unification with /=
+&- ? (/= tom bob)
+yes
+
+&- ? (/= tom tom)
+no
+
+&- ? (/= X X)
+no
+
+&- ? (/= [1 2] [1 3])
+yes
+
+% Find people with same age but different names
+&- ? (age X Y) (age Z Y) (/= X Z)
+X = bob
+Y = 25
+Z = alice
+; (press Enter)
+no more solutions
+```
+
 ---
 
 ## Project Structure
@@ -709,7 +747,7 @@ This allows lazy evaluation - solutions are generated on-demand.
 
 ## Built-in Predicates
 
-microPROLOG has 10 built-in predicates that work both in direct queries and inside rules:
+microPROLOG has 12 built-in predicates that work both in direct queries and inside rules:
 
 ### Unification and Arithmetic
 - **`(= X Y)`**: Unify X and Y (pattern matching)
@@ -720,6 +758,10 @@ microPROLOG has 10 built-in predicates that work both in direct queries and insi
 - **`(> X Y)`**: Check if X is greater than Y
 - **`(=< X Y)`**: Check if X is less than or equal to Y
 - **`(>= X Y)`**: Check if X is greater than or equal to Y
+- **`(<> X Y)`**: Check if X is arithmetically not equal to Y
+
+### Inequality Operators
+- **`(/= X Y)`**: Check if X and Y cannot be unified (not unifiable)
 
 ### Type Checking
 - **`(atom X)`**: Check if X is an atom
@@ -743,6 +785,18 @@ yes
 
 &- ? (>= 10 10)
 yes
+
+&- ? (<> 5 10)
+yes
+
+&- ? (<> 10 10)
+no
+
+&- ? (/= tom bob)
+yes
+
+&- ? (/= X X)
+no
 
 &- (age bob 25).
 ok
@@ -855,7 +909,8 @@ The system will try all matching rules.
 - **Built-in Predicates**
   - Unification: `(= X Y)`
   - Arithmetic: `(is X Expr)` with +, -, *, /
-  - Comparison: `(< X Y)`, `(> X Y)`, `(=< X Y)`, `(>= X Y)`
+  - Comparison: `(< X Y)`, `(> X Y)`, `(=< X Y)`, `(>= X Y)`, `(<> X Y)`
+  - Inequality: `(/= X Y)` for non-unification
   - Type checking: `(atom X)`, `(number X)`, `(var X)`, `(nonvar X)`
   - All built-ins work in rules and direct queries
 
