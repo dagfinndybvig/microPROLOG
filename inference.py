@@ -2,10 +2,15 @@
 Inference engine with SLD resolution and backtracking.
 """
 from typing import List, Generator
-from terms import Term, Variable, Compound
+from terms import Term, Variable, Compound, Atom
 from database import Database, Clause
 from unification import Substitution, unify
 from builtin_predicates import BuiltinRegistry
+
+
+class CutException(Exception):
+    """Exception raised when cut (!) is encountered."""
+    pass
 
 
 class InferenceEngine:
@@ -44,8 +49,20 @@ class InferenceEngine:
         goal = subst.apply(goals[0])
         remaining_goals = goals[1:]
         
+        # Check for cut (!)
+        if isinstance(goal, Atom) and goal.value == '!':
+            # Cut succeeds and continues with remaining goals
+            # But we raise CutException after yielding solutions to prevent backtracking
+            yielded_any = False
+            for solution in self.solve(remaining_goals, subst, depth + 1):
+                yielded_any = True
+                yield solution
+            # Only prevent backtracking if cut was actually reached (solutions were yielded)
+            if yielded_any:
+                raise CutException()
+        
         # Check if goal is a built-in predicate
-        if isinstance(goal, Compound) and self.builtins.is_builtin(goal.functor):
+        elif isinstance(goal, Compound) and self.builtins.is_builtin(goal.functor):
             # Evaluate built-in predicate
             for new_subst in self.builtins.evaluate(goal, subst):
                 # Continue with remaining goals
@@ -64,7 +81,11 @@ class InferenceEngine:
                     new_goals = renamed_clause.body + remaining_goals
                     
                     # Recursively solve new goals
-                    yield from self.solve(new_goals, new_subst, depth + 1)
+                    try:
+                        yield from self.solve(new_goals, new_subst, depth + 1)
+                    except CutException:
+                        # Cut encountered - stop trying alternative clauses
+                        return
     
     def _rename_variables(self, clause: Clause) -> Clause:
         """Rename all variables in a clause to avoid conflicts."""

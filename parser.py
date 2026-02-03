@@ -129,6 +129,11 @@ class Tokenizer:
                 tokens.append(Token(TokenType.PIPE, '|'))
                 self.advance()
             
+            # Cut operator
+            elif self.current_char == '!':
+                tokens.append(Token(TokenType.ATOM, '!'))
+                self.advance()
+            
             # Operator symbols (handle multi-character operators)
             elif self.current_char in '+-*/=<>\\':
                 op = self.current_char
