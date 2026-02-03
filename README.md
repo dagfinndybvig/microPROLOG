@@ -580,6 +580,54 @@ H = 1
 T = [2 3 4]
 ```
 
+### Example 4: Comparison Operators
+
+Use comparison operators to filter and make decisions based on numeric values.
+
+```
+&- (age bob 25).
+ok
+&- (age alice 30).
+ok
+&- (age charlie 20).
+ok
+&- (age diana 17).
+ok
+
+% Find people older than 22
+&- ? (age X Y) (> Y 22)
+X = bob
+Y = 25
+; (press Enter)
+X = alice
+Y = 30
+; (press Enter)
+no more solutions
+
+% Define a rule using comparison
+&- ((adult X) (age X Y) (>= Y 18)).
+ok
+
+&- ? (adult X)
+X = bob
+; (press Enter)
+X = alice
+; (press Enter)
+X = charlie
+; (press Enter)
+no more solutions
+
+% Find age ranges
+&- ? (age X Y) (>= Y 18) (< Y 30)
+X = bob
+Y = 25
+; (press Enter)
+X = charlie
+Y = 20
+; (press Enter)
+no more solutions
+```
+
 ---
 
 ## Project Structure
@@ -661,10 +709,19 @@ This allows lazy evaluation - solutions are generated on-demand.
 
 ## Built-in Predicates
 
-microPROLOG has 6 built-in predicates that work both in direct queries and inside rules:
+microPROLOG has 10 built-in predicates that work both in direct queries and inside rules:
 
+### Unification and Arithmetic
 - **`(= X Y)`**: Unify X and Y (pattern matching)
 - **`(is X Expr)`**: Evaluate arithmetic expression (supports +, -, *, /)
+
+### Comparison Operators
+- **`(< X Y)`**: Check if X is less than Y
+- **`(> X Y)`**: Check if X is greater than Y
+- **`(=< X Y)`**: Check if X is less than or equal to Y
+- **`(>= X Y)`**: Check if X is greater than or equal to Y
+
+### Type Checking
 - **`(atom X)`**: Check if X is an atom
 - **`(number X)`**: Check if X is a number
 - **`(var X)`**: Check if X is an unbound variable
@@ -680,6 +737,21 @@ X = 1, Y = 2, Z = 3
 ok
 &- ? (double 7 X)
 X = 14
+
+&- ? (< 5 10)
+yes
+
+&- ? (>= 10 10)
+yes
+
+&- (age bob 25).
+ok
+&- (age alice 30).
+ok
+&- ((adult X) (age X Y) (>= Y 18)).
+ok
+&- ? (adult bob)
+yes
 
 &- ? (atom tom)
 yes
@@ -783,6 +855,7 @@ The system will try all matching rules.
 - **Built-in Predicates**
   - Unification: `(= X Y)`
   - Arithmetic: `(is X Expr)` with +, -, *, /
+  - Comparison: `(< X Y)`, `(> X Y)`, `(=< X Y)`, `(>= X Y)`
   - Type checking: `(atom X)`, `(number X)`, `(var X)`, `(nonvar X)`
   - All built-ins work in rules and direct queries
 
@@ -800,7 +873,6 @@ The system will try all matching rules.
 
 ### 🔨 Future Extensions
 
-- Arithmetic comparison operators (<, >, =<, >=)
 - Assert/retract for dynamic modification
 - Trace mode for debugging
 - Cut (!) operator
@@ -866,7 +938,6 @@ This is an educational implementation created for learning purposes.
 
 This implementation can be extended with:
 
-- Arithmetic comparison operators (<, >, =<, >=)
 - Assert/retract for dynamic database modification (partially done with `clear`)
 - Trace mode for debugging
 - Cut (!) operator for controlling backtracking
