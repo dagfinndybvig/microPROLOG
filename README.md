@@ -844,7 +844,7 @@ The system will try all matching rules.
 ### Further Reading
 
 
-<img width="304" height="402" alt="logic" src="https://github.com/user-attachments/assets/45d84bbf-bead-41de-9af6-5b87e5c0fd32" />
+<img width="304" height="402" alt="logic" src="https://github.com/user-attachments/assets/45d84bbf-bead-41de-9af6-5b87e5c0fd32" /><br>
 
 
 - **Logic Programming And Knowledge Engineering** by Tore Amble
