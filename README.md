@@ -2,10 +2,10 @@
 <img width="404" height="402" alt="skolem" src="https://github.com/user-attachments/assets/d28290e8-58aa-4882-b7ab-7c6ebfe47eb0" />
 
 
-## This project is in memory of Norwegian mathematician Thoralf Skolem (1887–1963) who pioneered the recursive logic that lies behind PROLOG. I would also like to acknowledge the contribution to logic programming and expert systems by Tore Amble of the Norwegian University of Science and Technology, who inspired met as a very young man. May they rest in peace.
+### This project is in memory of Norwegian mathematician Thoralf Skolem (1887–1963) who pioneered the recursive logic that lies behind PROLOG. I would also like to acknowledge the contribution to logic programming and expert systems by Tore Amble of the Norwegian University of Science and Technology, who inspired me as a very young man.
 
 
-<img width="304" height="402" alt="amble" src="https://github.com/user-attachments/assets/45d84bbf-bead-41de-9af6-5b87e5c0fd32" />
+<img width="304" height="402" alt="logic" src="https://github.com/user-attachments/assets/45d84bbf-bead-41de-9af6-5b87e5c0fd32" />
 
 
 # microPROLOG
