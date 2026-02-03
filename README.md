@@ -31,7 +31,7 @@ A simplified implementation of PROLOG (Programming in Logic) with an interactive
 ## What is microPROLOG?
 
 microPROLOG is a simplified dialect of PROLOG (PROgramming in LOGic), a declarative programming language based on formal logic. Unlike imperative languages where you tell the computer *how* to solve a problem step-by-step, in logic programming you describe *what* the problem is, and the system figures out how to solve it.
-This implementation corresponds to the "core" version described in Part III of:
+This implementation corresponds to the "core" version described in Part III of Clark/McCabe:
 https://archive.org/details/microprologprogr0000clar/mode/2up
 
 ### Basic Ideas
@@ -679,7 +679,6 @@ yes
 yes
 ```
 
-For detailed testing guide, see `BUILTINS_TESTING.md`.
 
 ### List Operations
 
@@ -835,6 +834,7 @@ The system will try all matching rules.
 
 ### Further Reading
 
+- **micro-PROLOG: Programming in Logic** by Clark and McCabe
 - **The Art of Prolog** by Sterling and Shapiro
 - **Programming in Prolog** by Clocksin and Mellish
 - **Learn Prolog Now!** (free online book)
