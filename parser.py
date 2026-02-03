@@ -140,6 +140,12 @@ class Tokenizer:
                 elif op == '>' and self.current_char == '=':
                     op = '>='
                     self.advance()
+                elif op == '<' and self.current_char == '>':
+                    op = '<>'
+                    self.advance()
+                elif op == '/' and self.current_char == '=':
+                    op = '/='
+                    self.advance()
                 elif op == '\\' and self.current_char == '+':
                     op = '\\+'
                     self.advance()

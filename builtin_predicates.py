@@ -21,6 +21,8 @@ class BuiltinRegistry:
             '>': self._greater_than,
             '=<': self._less_or_equal,
             '>=': self._greater_or_equal,
+            '<>': self._not_equal,
+            '/=': self._not_unifiable,
         }
     
     def is_builtin(self, functor: str) -> bool:
@@ -190,3 +192,26 @@ class BuiltinRegistry:
                 yield subst
         except:
             pass  # Evaluation failed
+    
+    def _not_equal(self, args: tuple, subst: Substitution) -> Generator[Substitution, None, None]:
+        """(<> X Y) - check if X is arithmetically not equal to Y"""
+        if len(args) != 2:
+            return
+        
+        try:
+            left = self._eval_arithmetic(args[0], subst)
+            right = self._eval_arithmetic(args[1], subst)
+            if left != right:
+                yield subst
+        except:
+            pass  # Evaluation failed
+    
+    def _not_unifiable(self, args: tuple, subst: Substitution) -> Generator[Substitution, None, None]:
+        """(/= X Y) - check if X and Y cannot be unified"""
+        if len(args) != 2:
+            return
+        
+        new_subst = unify(args[0], args[1], subst)
+        if new_subst is None:
+            # Unification failed - they are not unifiable
+            yield subst
