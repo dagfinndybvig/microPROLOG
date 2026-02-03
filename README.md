@@ -846,11 +846,13 @@ The system will try all matching rules.
 
 <img width="304" height="402" alt="logic" src="https://github.com/user-attachments/assets/45d84bbf-bead-41de-9af6-5b87e5c0fd32" />
 
+
 - **Logic Programming And Knowledge Engineering** by Tore Amble
 - **micro-PROLOG: Programming in Logic** by Clark and McCabe
 - **The Art of Prolog** by Sterling and Shapiro
 - **Programming in Prolog** by Clocksin and Mellish
 - **Learn Prolog Now!** (free online book)
+
 
 ---
 
