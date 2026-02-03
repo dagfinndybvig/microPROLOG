@@ -126,10 +126,10 @@ class REPL:
                 first_arg = term.args[0]
                 
                 # If first arg is a compound, this might be a rule
-                if isinstance(first_arg, Compound) and len(term.args) > 1:
-                    # This is a rule
+                if isinstance(first_arg, Compound) and term.functor == "":
+                    # This is a rule (empty functor means rule syntax)
                     head = first_arg
-                    body = list(term.args[1:])
+                    body = list(term.args[1:])  # Body might be empty
                     clause = Clause(head, body)
                 else:
                     # This is a fact
