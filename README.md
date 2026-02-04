@@ -1076,6 +1076,7 @@ The system will try all matching rules.
 - **The Art of Prolog** by Sterling and Shapiro
 - **Programming in Prolog** by Clocksin and Mellish
 - **Learn Prolog Now!** (free online book)
+- **The Language of First-Order Logic** by Barwise and Etchemendy (for logic as such)
 
 
 ---
