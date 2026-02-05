@@ -162,9 +162,8 @@ def visualize_board(objects: Dict[str, WorldObject], show_legend: bool = True):
             # Convert to 0-indexed
             board[y-1][x-1] = obj
     
-    # Print board header
-    print("\n     " + "".join(f"{i+1:4}" for i in range(BOARD_SIZE)))
-    print("   " + "─" * (BOARD_SIZE * 4 + 1))
+    # Print board top border
+    print("\n   " + "─" * (BOARD_SIZE * 4 + 1))
     
     # Print board from top to bottom (Y=8 to Y=1)
     for y in range(BOARD_SIZE - 1, -1, -1):
@@ -184,7 +183,11 @@ def visualize_board(objects: Dict[str, WorldObject], show_legend: bool = True):
         
         print("│")
     
+    # Print board bottom border
     print("   " + "─" * (BOARD_SIZE * 4 + 1))
+    
+    # Print column numbers below the board (shifted one space left)
+    print("    " + "".join(f"{i+1:4}" for i in range(BOARD_SIZE)))
     print()
     
     # Print detailed object table
