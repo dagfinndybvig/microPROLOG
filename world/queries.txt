@@ -1,0 +1,161 @@
+% Example Queries for Tarski's World
+% Load world.pl and one of the world files first, then try these queries
+
+% =============================================================================
+% BASIC QUERIES - Finding objects
+% =============================================================================
+
+% Find all objects in the world
+? (object X)
+
+% Find all cubes
+? (shape X cube)
+
+% Find all tetrahedrons
+? (shape X tetrahedron)
+
+% Find all dodecahedrons
+? (shape X dodecahedron)
+
+% Find all small objects
+? (size X small)
+
+% Find all red objects
+? (color X red)
+
+% =============================================================================
+% COMBINED PROPERTY QUERIES
+% =============================================================================
+
+% Find small red objects
+? (size X small) (color X red)
+
+% Find large yellow cubes
+? (size X large) (color X yellow) (shape X cube)
+
+% Find purple dodecahedrons
+? (color X purple) (shape X dodecahedron)
+
+% Find medium objects that are not cubes
+? (size X medium) (shape X S) (/= S cube)
+
+% =============================================================================
+% SPATIAL QUERIES - Finding relative positions
+% =============================================================================
+
+% Find objects to the left of a1
+? (leftOf X a1)
+
+% Find objects to the right of b1
+? (rightOf X b1)
+
+% Find objects in front of c1
+? (frontOf X c1)
+
+% Find objects behind d1
+? (backOf X d1)
+
+% Find what a1 is left of
+? (leftOf a1 X)
+
+% Find pairs of objects where one is left of the other
+? (leftOf X Y)
+
+% =============================================================================
+% SIZE COMPARISON QUERIES
+% =============================================================================
+
+% Find objects smaller than a1
+? (smaller X a1)
+
+% Find objects larger than b1
+? (larger X b1)
+
+% Find objects the same size as c1
+? (sameSize X c1)
+
+% Find pairs where one is smaller than the other
+? (smaller X Y)
+
+% =============================================================================
+% PROPERTY MATCHING QUERIES
+% =============================================================================
+
+% Find objects with the same shape as a1
+? (sameShape X a1)
+
+% Find objects with the same color as b1
+? (sameColor X b1)
+
+% Find pairs of objects with the same shape
+? (sameShape X Y) (/= X Y)
+
+% Find pairs of objects with the same color but different shapes
+? (sameColor X Y) (shape X S1) (shape Y S2) (/= S1 S2)
+
+% =============================================================================
+% GEOMETRIC PROPERTY QUERIES
+% =============================================================================
+
+% Find objects with 4 faces
+? (hasFaces X 4)
+
+% Find objects with 12 edges
+? (hasEdges X 12)
+
+% Find objects with 8 vertices
+? (hasVertices X 8)
+
+% Find what shape has 12 faces
+? (faces S 12)
+
+% =============================================================================
+% COMPLEX QUERIES - Multiple conditions
+% =============================================================================
+
+% Find small red cubes that are left of something
+? (shape X cube) (size X small) (color X red) (leftOf X Y)
+
+% Find large objects to the right of small objects
+? (size X large) (size Y small) (rightOf X Y)
+
+% Find purple objects behind yellow objects
+? (color X purple) (color Y yellow) (backOf X Y)
+
+% Find objects with same shape, where one is smaller
+? (sameShape X Y) (smaller X Y)
+
+% Find objects at specific positions
+? (position X [3 5])
+
+% Find objects with X coordinate greater than 5
+? (position X [XC Y]) (> XC 5)
+
+% Find objects in the back half of the board (Y > 4)
+? (position X [XC Y]) (> Y 4)
+
+% =============================================================================
+% COUNTING QUERIES (get all solutions)
+% =============================================================================
+
+% Count all cubes (press Enter repeatedly to see all)
+? (shape X cube)
+
+% Count objects with 6 faces
+? (hasFaces X 6)
+
+% Count red objects
+? (color X red)
+
+% =============================================================================
+% NEGATIVE QUERIES
+% =============================================================================
+
+% Find objects that are NOT cubes
+? (object X) (shape X S) (/= S cube)
+
+% Find objects NOT at position [1 1]
+? (position X P) (/= P [1 1])
+
+% Find objects that are NOT the same size as a1
+? (object X) (size a1 S1) (size X S2) (/= S1 S2)
