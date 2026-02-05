@@ -1,6 +1,27 @@
-# Tarski's World 3D Rendering
+# Tarski's World 3D Rendering - Archive
 
-This directory contains multiple 3D rendering implementations for visualizing Tarski's World. Each renderer uses a different approach, progressing from complex but unstable to simple and reliable.
+⚠️ **DEPRECATED - Use the web version instead!**
+
+For the best 3D visualization experience, use **`../tarski_3d.html`** (browser-based, no installation required).
+
+---
+
+## Why This Is Archived
+
+This directory contains experimental Python/Pygame renderers that were developed as an exploration of different 3D rendering approaches. While functional, the browser-based Three.js renderer (`../tarski_3d.html`) is:
+- ✅ Much simpler to use (just open in browser)
+- ✅ Better visual quality (proper 3D geometries)
+- ✅ More stable (hardware-accelerated WebGL)
+- ✅ No dependencies to install
+- ✅ Works on any device with a browser
+
+**Recommended**: Use `start world\tarski_3d.html` from the main directory.
+
+---
+
+## Contents (For Historical Interest)
+
+This directory contains multiple 3D rendering implementations for visualizing Tarski's World using Python and Pygame. Each renderer uses a different approach, progressing from complex but unstable to simple and reliable.
 
 ## Overview
 

@@ -384,7 +384,7 @@ Future ideas to enhance the system:
 - `README.md` - This file
 - `PLAN.md` - Implementation plan and design notes
 - `tarski.jpg` - Reference image
-- `3D_rendering/` - Python-based 3D renderers (Pygame) and documentation
+- `3D_rendering_archive/` - Archived Python/Pygame 3D renderers (experimental)
 
 ## 3D Visualization
 
@@ -401,7 +401,7 @@ This provides:
 - 🌐 **No installation required** - works in any modern browser
 - 📋 **Easy world switching** via dropdown menu
 
-For alternative Python-based renderers using Pygame, see the `3D_rendering/` directory which includes multiple approaches from complex real-time 3D to stable pre-rendered views. The web version (`tarski_3d.html`) is recommended for its simplicity and visual quality.
+For alternative Python-based renderers using Pygame, see the `3D_rendering_archive/` directory which includes multiple experimental approaches. These are archived in favor of the simpler, more stable web version.
 
 ## Learning Resources
 
