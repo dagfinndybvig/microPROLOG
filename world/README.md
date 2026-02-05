@@ -17,9 +17,8 @@ The basic visualization in the present system is pure ASCII so it can work every
 
 ## Quick Start (Windows slashes)
 
-1. **Start microPROLOG** from the parent directory:
+1. **Start microPROLOG** from the main directory:
    ```bash
-   cd ..
    python main.py
    ```
 
