@@ -22,12 +22,17 @@ The basic visualization in the present system is pure ASCII so it can work every
    python main.py
    ```
 
-2. **Load the world rules**:
+2. **Load the GENERAL world rules**:
+   ```
+   &- consult world\world.pl
+   ```
+
+3. **Load the SPECIFIC world rules**:
    ```
    &- consult world\world1.pl
    ```
 
-3. **Try a query**:
+4. **Try a query**:
    ```
    &- ? (object X)
    X = a1
@@ -37,15 +42,19 @@ The basic visualization in the present system is pure ASCII so it can work every
    ...
    ```
 
-4. **Visualize the world** (fetches from the world directory):
-   ```bash
-   python world\visualize_world.py world\world1.pl
-   ```
+4. **Visualize the world**:
+   from within the REPL:
    
-   Or from within the REPL:
    ```
    &- show world\world1.pl
    ```
+   Or from the command line of main directory:
+   
+    ```bash
+   python world\visualize_world.py world\world1.pl
+   ```
+   
+   Or 
    
    This displays the board with colored object names and a detailed table of all properties!
    
