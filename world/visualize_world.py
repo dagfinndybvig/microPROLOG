@@ -186,8 +186,8 @@ def visualize_board(objects: Dict[str, WorldObject], show_legend: bool = True):
     # Print board bottom border
     print("   " + "─" * (BOARD_SIZE * 4 + 1))
     
-    # Print column numbers below the board (shifted one space left)
-    print("    " + "".join(f"{i+1:4}" for i in range(BOARD_SIZE)))
+    # Print column numbers below the board (shifted one more space left)
+    print("   " + "".join(f"{i+1:4}" for i in range(BOARD_SIZE)))
     print()
     
     # Print detailed object table
