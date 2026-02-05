@@ -40,7 +40,7 @@ The basic visualization in the present system is pure ASCII so it can work every
 
 4. **Visualize the world** (fetches from the world directory):
    ```bash
-   python visualize_world.py world\world1.pl
+   python world\visualize_world.py world\world1.pl
    ```
    
    Or from within the REPL:
