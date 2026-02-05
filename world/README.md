@@ -41,7 +41,14 @@ This implementation is inspired by **"The Language of First-Order Logic"** by Jo
    python visualize_world.py world1.pl
    ```
    
+   Or from within the REPL:
+   ```
+   &- show world/world1.pl
+   ```
+   
    This displays the board with colored object names and a detailed table of all properties!
+   
+   **Note**: The `show` command is read-only and does NOT load the world into the database. Use `consult` to load worlds for querying.
 
 ## What is Tarski's World?
 
@@ -190,11 +197,48 @@ Each world is randomly generated with different configurations of shapes, sizes,
 
 ## Visualizing Worlds
 
-Use the `visualize_world.py` script to display an ASCII representation of the board:
+There are two ways to visualize a Tarski's World:
+
+### 1. From the command line (world directory)
 
 ```bash
 python visualize_world.py world1.pl
 ```
+
+### 2. From within microPROLOG REPL
+
+```
+&- show world/world1.pl
+```
+
+**Important**: The `show` command is **read-only** and does NOT load the world into the database. It only displays the visualization. This means:
+
+- ✅ Use `consult world/world1.pl` to load a world for querying
+- ✅ Use `show world/world1.pl` to visualize a world (without loading)
+- ⚠️ `show` does not affect what's in your database
+- ⚠️ You can visualize a different world than what's currently loaded
+
+**Example workflow**:
+```
+&- consult world/world1.pl         # Load world1 into database
+Loaded 20 clause(s)...
+
+&- show world/world1.pl             # Visualize world1
+[board display appears]
+
+&- ? (object X)                     # Query the loaded world1
+X = a1
+...
+
+&- show world/world2.pl             # Visualize world2 (doesn't load it!)
+[world2 board appears]
+
+&- ? (object X)                     # Still querying world1 (unchanged)
+X = a1
+...
+```
+
+### Visualization Features
 
 The visualizer shows:
 - **Board**: 8×8 grid with object names displayed in their actual colors
@@ -207,18 +251,25 @@ Colors are rendered using ANSI codes:
 
 Example output:
 ```
-        1   2   3   4   5   6   7   8
    ─────────────────────────────────
  8 │  .   .  b1  a1   .   .   .   . │
  7 │  .   .  d1   .   .   .   .   . │
- ...
+ 6 │  .   .   .   .   .   .   .   . │
+ 5 │  .   .   .   .   .   .   .   . │
+ 4 │  .   .   .   .   .   .   .   . │
+ 3 │  .   .   .   .   .   .   .   . │
+ 2 │  .   .   .   .   .   .   .   . │
+ 1 │  .   .   .   .  c1   .   .   . │
+   ─────────────────────────────────
+      1   2   3   4   5   6   7   8
 
 Objects:
   Name   Shape         Size     Color    Position
   ------ ------------- -------- -------- --------
   a1     cube          large    red      [4, 8]
   b1     cube          small    yellow   [3, 8]
-  ...
+  c1     dodecahedron  large    purple   [5, 1]
+  d1     dodecahedron  small    purple   [3, 7]
 ```
 
 ## Generating New Worlds

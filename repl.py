@@ -58,6 +58,14 @@ class REPL:
                         self._save_file(filename)
                     else:
                         print("Usage: save <filename>")
+                # Show visualization
+                elif line.startswith('show '):
+                    parts = line.split(maxsplit=1)
+                    if len(parts) == 2:
+                        filename = parts[1].strip()
+                        self._show_visualization(filename)
+                    else:
+                        print("Usage: show <filename>")
                 # Query (starts with ?)
                 elif line.startswith('?'):
                     self._handle_query(line[1:].strip())
@@ -103,6 +111,7 @@ class REPL:
         print("  consult <file>          - Load clauses from file")
         print("  load <file>             - Load clauses from file (same as consult)")
         print("  save <file>             - Save database to file")
+        print("  show <file>             - Visualize world file (Tarski's World only)")
         print("  help                    - Show this message")
         print("  quit / exit             - Exit microPROLOG")
         print()
@@ -112,6 +121,7 @@ class REPL:
         print("  ? (parent tom X)")
         print("  consult family.pl")
         print("  save my_facts.pl")
+        print("  show world/world1.pl")
     
     def _show_database(self):
         """Display all clauses in the database."""
@@ -366,3 +376,40 @@ class REPL:
             
         except Exception as e:
             print(f"Error saving file: {e}")
+    
+    def _show_visualization(self, filename: str):
+        """Display visualization of a world file (read-only, doesn't load)."""
+        import sys
+        import os
+        
+        # Import the visualizer from world directory if available
+        try:
+            # Try to import from world subdirectory
+            world_dir = os.path.join(os.path.dirname(__file__), 'world')
+            if os.path.exists(world_dir):
+                sys.path.insert(0, world_dir)
+            
+            from visualize_world import parse_world_file, visualize_board
+            
+            # Parse and visualize
+            objects = parse_world_file(filename)
+            
+            if not objects:
+                print("No objects found in file (not a Tarski's World file?)")
+                return
+            
+            print(f"\nTarski's World: {filename}")
+            print(f"Objects: {len(objects)}")
+            visualize_board(objects)
+            
+        except ImportError:
+            print("Error: Visualization requires world/visualize_world.py")
+            print("This command only works for Tarski's World files.")
+        except FileNotFoundError:
+            print(f"Error: File '{filename}' not found")
+        except Exception as e:
+            print(f"Error visualizing file: {e}")
+        finally:
+            # Clean up sys.path
+            if world_dir in sys.path:
+                sys.path.remove(world_dir)
