@@ -43,18 +43,31 @@ The basic visualization in the present system is pure ASCII so it can work every
    ```
 
 4. **Visualize the world**:
-   from within the REPL (note: fetches world data from disk not database):
    
+   **ASCII Visualization** (from within the REPL):
    ```
    &- show world\world1.pl
    ```
    Or from the command line of main directory:
-   
-    ```bash
+   ```bash
    python world\visualize_world.py world\world1.pl
    ```
-      
    This displays the board with colored object names and a detailed table of all properties!
+   
+   **3D Visualization** (in your browser):
+   
+   Simply open `world\tarski_3d.html` in any web browser:
+   ```bash
+   start world\tarski_3d.html
+   ```
+   
+   Features:
+   - 🎮 **Interactive 3D** with proper geometries (tetrahedron, cube, dodecahedron)
+   - 🖱️ **Mouse drag** to rotate, **scroll** to zoom
+   - ⌨️ **Arrow keys** to orbit, **Space** to reset view
+   - 📋 **Dropdown menu** to switch between World 1, 2, and 3
+   - ✨ **Hardware-accelerated** WebGL rendering with lighting and shadows
+   - 🌐 **No installation** needed - works in any modern browser
    
    **Remember**: The `show` command is read-only and does NOT load the world into the database. Use `consult` to load worlds for querying.
 
@@ -366,10 +379,29 @@ Future ideas to enhance the system:
 - `world1.pl`, `world2.pl`, `world3.pl` - Example worlds
 - `generate_world.py` - Python script to generate random worlds
 - `visualize_world.py` - ASCII board visualization tool
+- `tarski_3d.html` - **Interactive 3D web visualizer** (recommended!)
 - `queries.txt` - Example queries to try
 - `README.md` - This file
 - `PLAN.md` - Implementation plan and design notes
 - `tarski.jpg` - Reference image
+- `3D_rendering/` - Python-based 3D renderers (Pygame) and documentation
+
+## 3D Visualization
+
+For the best visualization experience, use the **browser-based 3D renderer**:
+
+```bash
+start world\tarski_3d.html
+```
+
+This provides:
+- ✨ **True 3D rendering** with proper Platonic solid geometries
+- 🖱️ **Interactive controls**: Drag to rotate, scroll to zoom
+- 🎨 **Beautiful lighting and shadows**
+- 🌐 **No installation required** - works in any modern browser
+- 📋 **Easy world switching** via dropdown menu
+
+For alternative Python-based renderers using Pygame, see the `3D_rendering/` directory which includes multiple approaches from complex real-time 3D to stable pre-rendered views. The web version (`tarski_3d.html`) is recommended for its simplicity and visual quality.
 
 ## Learning Resources
 
