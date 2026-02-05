@@ -180,23 +180,33 @@ Each world is randomly generated with different configurations of shapes, sizes,
 Use the `visualize_world.py` script to display an ASCII representation of the board:
 
 ```bash
-# Basic visualization
 python visualize_world.py world1.pl
-
-# Detailed view with two-line cells
-python visualize_world.py world2.pl --detailed
 ```
 
 The visualizer shows:
-- **Position**: Objects placed on 8×8 grid
-- **Name**: Object identifier (e.g., a1, b2)
-- **Shape**: T=Tetrahedron, C=Cube, D=Dodecahedron
-- **Color**: R=Red, Y=Yellow, P=Purple
-- **Size**: s=small, m=medium, L=large
+- **Board**: 8×8 grid with object names displayed in their actual colors
+- **Table**: Complete object details (shape, size, color, position)
 
-**Compact format** displays: `[name][shape][color]` (e.g., `aCR` = object a, Cube, Red)
+Colors are rendered using ANSI codes:
+- Red objects appear in red
+- Yellow objects appear in yellow  
+- Purple objects appear in purple
 
-**Detailed format** displays objects in two-line cells showing all properties.
+Example output:
+```
+        1   2   3   4   5   6   7   8
+   ─────────────────────────────────
+ 8 │  .   .  b1  a1   .   .   .   . │
+ 7 │  .   .  d1   .   .   .   .   . │
+ ...
+
+Objects:
+  Name   Shape         Size     Color    Position
+  ------ ------------- -------- -------- --------
+  a1     cube          large    red      [4, 8]
+  b1     cube          small    yellow   [3, 8]
+  ...
+```
 
 ## Generating New Worlds
 

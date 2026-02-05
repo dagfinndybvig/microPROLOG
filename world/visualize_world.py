@@ -9,6 +9,15 @@ import re
 from typing import Dict, Tuple, Optional
 
 
+# ANSI color codes
+class Colors:
+    RED = '\033[91m'
+    YELLOW = '\033[93m'
+    PURPLE = '\033[95m'
+    RESET = '\033[0m'
+    BOLD = '\033[1m'
+
+
 class WorldObject:
     """Represents an object in the world."""
     def __init__(self, name: str):
@@ -41,6 +50,16 @@ class WorldObject:
         elif self.color == 'purple':
             return 'P'
         return '?'
+    
+    def get_ansi_color(self) -> str:
+        """Get ANSI color code for this object's color."""
+        if self.color == 'red':
+            return Colors.RED
+        elif self.color == 'yellow':
+            return Colors.YELLOW
+        elif self.color == 'purple':
+            return Colors.PURPLE
+        return Colors.RESET
     
     def get_size_symbol(self) -> str:
         """Get size symbol."""
@@ -130,7 +149,7 @@ def parse_world_file(filename: str) -> Dict[str, WorldObject]:
 
 
 def visualize_board(objects: Dict[str, WorldObject], show_legend: bool = True):
-    """Display ASCII visualization of the board."""
+    """Display ASCII visualization of the board with colored names."""
     BOARD_SIZE = 8
     
     # Create empty board
@@ -143,17 +162,9 @@ def visualize_board(objects: Dict[str, WorldObject], show_legend: bool = True):
             # Convert to 0-indexed
             board[y-1][x-1] = obj
     
-    # Print legend
-    if show_legend:
-        print("\nLegend:")
-        print("  Shape: T=Tetrahedron, C=Cube, D=Dodecahedron")
-        print("  Color: R=Red, Y=Yellow, P=Purple")
-        print("  Size:  s=small, m=medium, L=large")
-        print()
-    
     # Print board header
-    print("     " + "".join(f"{i+1:3}" for i in range(BOARD_SIZE)))
-    print("   " + "─" * (BOARD_SIZE * 3 + 1))
+    print("\n     " + "".join(f"{i+1:4}" for i in range(BOARD_SIZE)))
+    print("   " + "─" * (BOARD_SIZE * 4 + 1))
     
     # Print board from top to bottom (Y=8 to Y=1)
     for y in range(BOARD_SIZE - 1, -1, -1):
@@ -163,27 +174,30 @@ def visualize_board(objects: Dict[str, WorldObject], show_legend: bool = True):
         for x in range(BOARD_SIZE):
             obj = board[y][x]
             if obj:
-                # Display format: name:Shape:Color
-                shape_sym = obj.get_shape_symbol()
-                color_code = obj.get_color_code()
-                # Compact display
-                cell = f"{obj.name[0]}{shape_sym}{color_code}"
-                print(f"{cell:>2}", end=" ")
+                # Display name in color
+                color = obj.get_ansi_color()
+                cell = f"{color}{obj.name}{Colors.RESET}"
+                # Need to account for invisible ANSI codes in spacing
+                print(f" {cell} ", end="")
             else:
-                print(" . ", end="")
+                print("  . ", end="")
         
         print("│")
     
-    print("   " + "─" * (BOARD_SIZE * 3 + 1))
+    print("   " + "─" * (BOARD_SIZE * 4 + 1))
     print()
     
-    # Print detailed object list
+    # Print detailed object table
     print("Objects:")
+    print(f"  {'Name':<6} {'Shape':<13} {'Size':<8} {'Color':<8} {'Position'}")
+    print(f"  {'-'*6} {'-'*13} {'-'*8} {'-'*8} {'-'*8}")
     sorted_objects = sorted(objects.values(), key=lambda o: o.name)
     for obj in sorted_objects:
         if obj.is_complete():
             x, y = obj.position
-            print(f"  {obj.name}: {obj.size:6} {obj.color:6} {obj.shape:12} at [{x}, {y}]")
+            # Display name in color in the table too
+            color = obj.get_ansi_color()
+            print(f"  {color}{obj.name:<6}{Colors.RESET} {obj.shape:<13} {obj.size:<8} {obj.color:<8} [{x}, {y}]")
 
 
 def visualize_board_detailed(objects: Dict[str, WorldObject], show_legend: bool = True):
@@ -246,14 +260,13 @@ def visualize_board_detailed(objects: Dict[str, WorldObject], show_legend: bool 
 def main():
     """Main entry point."""
     if len(sys.argv) < 2:
-        print("Usage: python visualize_world.py <world_file.pl> [--detailed]")
+        print("Usage: python visualize_world.py <world_file.pl>")
         print("\nExample:")
         print("  python visualize_world.py world1.pl")
-        print("  python visualize_world.py world2.pl --detailed")
+        print("  python visualize_world.py world2.pl")
         sys.exit(1)
     
     filename = sys.argv[1]
-    detailed = '--detailed' in sys.argv or '-d' in sys.argv
     
     # Parse world file
     objects = parse_world_file(filename)
@@ -267,10 +280,7 @@ def main():
     print(f"Objects: {len(objects)}")
     
     # Visualize
-    if detailed:
-        visualize_board_detailed(objects)
-    else:
-        visualize_board(objects)
+    visualize_board(objects)
 
 
 if __name__ == "__main__":
