@@ -368,6 +368,21 @@ Future ideas to enhance the system:
 - `PLAN.md` - Implementation plan and design notes
 - `tarski.jpg` - Reference image
 
+## How to Rename a File in GitHub Interface
+
+If you need to rename any file in this repository (including `tarski.jpg` or any other file) using the GitHub web interface:
+
+1. **Navigate to the file**: Go to the repository on GitHub and click on the file you want to rename
+2. **Click the pencil icon**: In the top-right corner of the file view, click the pencil icon (✏️) to edit the file
+3. **Edit the filename**: At the top of the editor, you'll see the current filename in an editable text box. Click on it and change the name as desired
+4. **Commit the change**: Scroll down to the "Commit changes" section
+   - Add a commit message describing the rename (e.g., "Rename tarski.jpg to alfred_tarski.jpg")
+   - Optionally add an extended description
+   - Choose to commit directly to the current branch or create a new branch for a pull request
+5. **Confirm**: Click "Commit changes" to apply the rename
+
+**Note**: When renaming files through the GitHub interface, any references to the file in documentation or code will need to be updated separately to reflect the new filename.
+
 ## Learning Resources
 
 Tarski's World was created as a teaching tool for first-order logic. This implementation demonstrates:
