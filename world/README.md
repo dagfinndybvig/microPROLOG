@@ -27,7 +27,7 @@ The basic visualization in the present system is pure ASCII so it can work every
    &- consult world\world.pl
    ```
 
-3. **Load the SPECIFIC world rules**:
+3. **Load the SPECIFIC information about World 1**:
    ```
    &- consult world\world1.pl
    ```
@@ -43,7 +43,7 @@ The basic visualization in the present system is pure ASCII so it can work every
    ```
 
 4. **Visualize the world**:
-   from within the REPL:
+   from within the REPL (note: fetches world data from disk not database):
    
    ```
    &- show world\world1.pl
@@ -53,12 +53,10 @@ The basic visualization in the present system is pure ASCII so it can work every
     ```bash
    python world\visualize_world.py world\world1.pl
    ```
-   
-   Or 
-   
+      
    This displays the board with colored object names and a detailed table of all properties!
    
-   **Note**: The `show` command is read-only and does NOT load the world into the database. Use `consult` to load worlds for querying.
+   **Remember**: The `show` command is read-only and does NOT load the world into the database. Use `consult` to load worlds for querying.
 
 ## What is Tarski's World?
 
