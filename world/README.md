@@ -2,6 +2,7 @@
 ![alfred](https://github.com/user-attachments/assets/a918a80f-a66e-4bb5-bb18-3eaa1fcd211a)
 Alfred Tarski (1901-1983)
 
+
 # Tarski's World for microPROLOG
 
 A Tarski's World implementation where geometric objects (Platonic solids) with properties are placed on an 8×8 grid, and users can query about spatial relationships derived from absolute positions.
