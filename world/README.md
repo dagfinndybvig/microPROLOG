@@ -2,6 +2,12 @@
 
 A Tarski's World implementation where geometric objects (Platonic solids) with properties are placed on an 8×8 grid, and users can query about spatial relationships derived from absolute positions.
 
+## Inspiration
+
+This implementation is inspired by **"The Language of First-Order Logic"** by Jon Barwise and John Etchemendy, and the accompanying educational software **Tarski's World**. The program was designed to teach first-order logic through visual reasoning about geometric objects in a simple blocks world.
+
+**Alfred Tarski** (1901-1983) was a Polish-American logician and mathematician, one of the greatest logicians of the 20th century. He made fundamental contributions to model theory, metamathematics, and the semantics of formal languages. His work on truth in formal languages and the concept of logical consequence forms the foundation of modern logic. Tarski's World honors his legacy by making abstract logical concepts concrete and accessible through visual representation.
+
 ## Quick Start
 
 1. **Start microPROLOG** from the parent directory:
@@ -308,6 +314,11 @@ Tarski's World was created as a teaching tool for first-order logic. This implem
 - How to use logical operators (conjunction, negation)
 
 Perfect for learning both logic programming and Prolog!
+
+### Recommended Reading
+
+- **The Language of First-Order Logic** by Jon Barwise and John Etchemendy - The original textbook that introduced Tarski's World as an educational tool
+- **Tarski's World** software - The companion program for visual logic learning (now available as Tarski's World 2.0)
 
 ---
 
