@@ -11,7 +11,8 @@ A Tarski's World implementation where geometric objects (Platonic solids) with p
 
 This implementation is inspired by **"The Language of First-Order Logic"** by Jon Barwise and John Etchemendy, and the accompanying educational software **Tarski's World**. The program was designed to teach first-order logic through visual reasoning about geometric objects in a simple blocks world.
 
-The basic visualization in the present system is pure ASCII so it can work everywhere without extra libraries.
+The basic visualization in the present system is pure ASCII so it can work everywhere with just standard Python.<br>
+However, at the bottom of this page you will find reference to a JavaScript 3D renderer.
 
 **Alfred Tarski** (1901-1983) was a Polish-American logician and mathematician, one of the greatest logicians of the 20th century. He made fundamental contributions to model theory, metamathematics, and the semantics of formal languages. His work on truth in formal languages and the concept of logical consequence forms the foundation of modern logic. Tarski's World honors his legacy by making abstract logical concepts concrete and accessible through visual representation.
 
