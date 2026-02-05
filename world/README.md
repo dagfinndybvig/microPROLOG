@@ -36,6 +36,13 @@ This implementation is inspired by **"The Language of First-Order Logic"** by Jo
    ...
    ```
 
+5. **Visualize the world** (from the world directory):
+   ```bash
+   python visualize_world.py world1.pl
+   ```
+   
+   This displays the board with colored object names and a detailed table of all properties!
+
 ## What is Tarski's World?
 
 Named after logician Alfred Tarski, Tarski's World is an educational system for teaching first-order logic using simple geometric shapes. You describe properties and relationships, then query the system using logical expressions.
