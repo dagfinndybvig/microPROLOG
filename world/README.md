@@ -15,7 +15,7 @@ The basic visualization in the present system is pure ASCII so it can work every
 
 **Alfred Tarski** (1901-1983) was a Polish-American logician and mathematician, one of the greatest logicians of the 20th century. He made fundamental contributions to model theory, metamathematics, and the semantics of formal languages. His work on truth in formal languages and the concept of logical consequence forms the foundation of modern logic. Tarski's World honors his legacy by making abstract logical concepts concrete and accessible through visual representation.
 
-## Quick Start
+## Quick Start (Windows slashes)
 
 1. **Start microPROLOG** from the parent directory:
    ```bash
@@ -25,15 +25,10 @@ The basic visualization in the present system is pure ASCII so it can work every
 
 2. **Load the world rules**:
    ```
-   &- consult world/world.pl
+   &- consult world\world1.pl
    ```
 
-3. **Load an example world**:
-   ```
-   &- consult world/world1.pl
-   ```
-
-4. **Try a query**:
+3. **Try a query**:
    ```
    &- ? (object X)
    X = a1
@@ -43,14 +38,14 @@ The basic visualization in the present system is pure ASCII so it can work every
    ...
    ```
 
-5. **Visualize the world** (from the world directory):
+4. **Visualize the world** (fetches from the world directory):
    ```bash
-   python visualize_world.py world1.pl
+   python visualize_world.py world\world1.pl
    ```
    
    Or from within the REPL:
    ```
-   &- show world/world1.pl
+   &- show world\world1.pl
    ```
    
    This displays the board with colored object names and a detailed table of all properties!
