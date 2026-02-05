@@ -57,10 +57,10 @@ The three Platonic solids have these properties:
 
 ### Basic Properties
 - `(object X)` - X is an object in the world
-- `(shape X S)` - Object X has shape S
-- `(size X S)` - Object X has size S
-- `(color X C)` - Object X has color C
-- `(position X [X Y])` - Object X is at coordinates [X, Y]
+- `(shape A S)` - Object A has shape S
+- `(size A S)` - Object A has size S
+- `(color A C)` - Object A has color C
+- `(position A [X Y])` - Object A is at coordinates [X, Y]
 
 ### Spatial Relations (derived from positions)
 - `(leftOf A B)` - A is to the left of B (A's X < B's X)
