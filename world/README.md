@@ -15,7 +15,7 @@ The basic visualization in the present system is pure ASCII so it can work every
 
 However, at the bottom of this page you will find reference to a JavaScript 3D renderer.
 
-This is what Tarski's world looks like in the browser, just to give you an idead of what we are dealing with:
+This is what Tarski's world looks like in the browser, just to give you an idea of what we are dealing with
 
 <img width="1151" height="511" alt="tarskichess" src="https://github.com/user-attachments/assets/91d48c5e-7ce3-4603-82a6-1c624afc7ce4" />
 
