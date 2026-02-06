@@ -20,7 +20,8 @@ This is what the logical world looks like in the browser, just to give you an id
 <img width="1151" height="511" alt="tarskichess" src="https://github.com/user-attachments/assets/91d48c5e-7ce3-4603-82a6-1c624afc7ce4" />
 
 
-**Alfred Tarski** (1901-1983) was a Polish-American logician and mathematician, one of the greatest logicians of the 20th century. He made fundamental contributions to model theory, metamathematics, and the semantics of formal languages. His work on truth in formal languages and the concept of logical consequence forms the foundation of modern logic. Tarski's World honors his legacy by making abstract logical concepts concrete and accessible through visual representation.
+
+**Note: Alfred Tarski** (1901-1983) was a Polish-American logician and mathematician, one of the greatest logicians of the 20th century. He made fundamental contributions to model theory, metamathematics, and the semantics of formal languages. His work on truth in formal languages and the concept of logical consequence forms the foundation of modern logic. Tarski's World honors his legacy by making abstract logical concepts concrete and accessible through visual representation.
 
 ## Quick Start (Windows slashes)
 
