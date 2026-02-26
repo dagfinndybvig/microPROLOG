@@ -1064,7 +1064,7 @@ The system will try all matching rules.
 2. Build your own family tree or knowledge base
 3. Experiment with recursive rules
 4. Try modeling other relationships (friendships, hierarchies, etc.)
-5. Go on to explore Tarski's World in the subfolder \world of this project
+5. Go on to explore Tarski's World in the subfolder <b>world</b> of this project
 
 ### Further Reading
 
